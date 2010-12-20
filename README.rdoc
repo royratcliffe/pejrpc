@@ -1,0 +1,10 @@
+Privacy Enhanced JSON-RPC
+-------------------------
+
+Scenario: You have two web-based applications. One is a legacy application coded in (say) PHP running on a standard LAMP stack. The other is a new Rails-based application. You cannot quickly migrate the users from one to the other. Rather you plan a path for migration from old to new in an ordered stepwise fashion, adding new modules to replace old ones. Hence you want a mechanism by which you can design interactions between the new and the legacy system. Interaction will be limited in scope but necessary. The new Rails application will access certain features available in the legacy application. You care about security. This describes the basic scenario in outline.
+
+Privacy Enhanced
+================
+
+The PE in PE JSON-RPC stands for Privacy Enhanced and stems from the PEM acronym, which itself stands for Privacy Enhanced Mail. This project applies similar privacy enhancement to JSON-RPC, a simple remote procedure call protocol built on simple JSON encoding.
+
