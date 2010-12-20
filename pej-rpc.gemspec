@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "pej-rpc"
   s.version     = Pej::Rpc::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Roy Ratcliffe"]
+  s.email       = ["roy@pioneeringsoftware.co.uk"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Privacy Enhanced JSON-RPC}
+  s.description = %q{Applies PEM encrypted privacy enhancement to JSON-RPC, a simple remote procedure-call protocol built on simple JSON encoding}
 
   s.rubyforge_project = "pej-rpc"
 
