@@ -1,10 +1,31 @@
-Privacy Enhanced JSON-RPC
--------------------------
+= Privacy Enhanced JSON-RPC
 
 Scenario: You have two web-based applications. One is a legacy application coded in (say) PHP running on a standard LAMP stack. The other is a new Rails-based application. You cannot quickly migrate the users from one to the other. Rather you plan a path for migration from old to new in an ordered stepwise fashion, adding new modules to replace old ones. Hence you want a mechanism by which you can design interactions between the new and the legacy system. Interaction will be limited in scope but necessary. The new Rails application will access certain features available in the legacy application. You care about security. This describes the basic scenario in outline.
 
-Privacy Enhanced
-================
+== Privacy Enhanced
 
 The PE in PE JSON-RPC stands for Privacy Enhanced and stems from the PEM acronym, which itself stands for Privacy Enhanced Mail. This project applies similar privacy enhancement to JSON-RPC, a simple remote procedure-call protocol built on simple JSON encoding.
+
+== JSON RPC
+
+What is JSON-RPC? You can access a formal definition via the {JSON-RPC website}[http://json-rpc.org/]. But the simplest explanation is this: JSON-RPC maps remote procedure calls to HTTP POST requests. The body of the requests encapsulates the procedure name and arguments. The response encapsulates the reply, if any. Both request and reply use JavaScript Object Notation (JSON) as the simple encoding method for representing basic types.
+
+You can read the {JSON-RPC 2.0 Specification}[http://groups.google.com/group/json-rpc/web/json-rpc-2-0] in about ten minutes. The protocol is very simple, by design. But there are some important points to note. The following points try to summarise the specification in outline; ideal for the lazy.
+
+1. There are only four primitive types: strings, numbers, booleans and null; where _number_ refers to either integer or floating-point numbers.
+2. There are only two structured types: object and array; where _object_ refers essentially to a map or dictionary of key-value pairs called 'members,' the key being of string type necessarily. Note that objects _are_ dictionaries because JavaScript implements objects as such.
+3. All string matching is case *sensitive*.
+4. Clients originate requests.
+5. Servers originate responses.
+6. JSON-RPC version 2.0 request objects carry the key-value pair <code>"jsonrpc":"2.0"</code>, mapping string +jsonrpc+ to string +2.0+.
+7. Request objects always have a +method+ string. It describes which method to invoke. The method name must not begin with +rpc.+ because JSON-RPC reserves such names for 'internal' use--as yet unspecified.
+8. An optional +params+ pair provides a sub-object or array for the method's parameter values. You can only use 'structured' values for the parameters, never primitives, such as a single string, number or boolean. If an array, the parameters specify by position; if an object, parameters specify by name. Parameters sent by clients must match the server's expectations either by-position or by-name. Otherwise, the server will respond with an error.
+9. An optional +id+ specifies a string or a integer (or even null, though discouraged). If missing, the request is a notification, and the server will *not* answer with a response. The client determines the +id+ value and the server always responds with an identical value. Hence, the client can match responses to requests since they can run over the same transport in any order. The server may invoke the methods asynchronously. Responses may not arrive in the same order as the requests, necessarily. (In JSON-RPC version 1.0, +id+ values of +null+ indicate a notification. Be careful.) You cannot confirm notifications, not even when notifications trigger errors; no response either good or bad.
+10. The server response is a single JSON object with members: +jsonrpc+ optional version string; +result+ mandatory when successful; +error+ mandatory object on error; and +id+ always.
+11. Error objects have members: +code+ integer; +message+ string; and optional +data+ primitive or structure.
+12. You can send an array of request objects to be executed as a batch, concurrently in any order. The server responds with a array of response objects in any order, albeit without responses for any notification requests. If no response objects, the server responds with nothing (_not_ an empty array).
+
+== Bundler
+
+The project uses Bundler to manage the gem. Ryan Bates has published an excellent screen-cast on how to use Bundler for gems. Please see {Railscasts, Episode 245}[http://railscasts.com/episodes/245-new-gem-with-bundler].
 
