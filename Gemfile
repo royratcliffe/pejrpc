@@ -1,4 +1,4 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in pejsonrpc.gemspec
+# Specify your gem's dependencies in pej-rpc.gemspec
 gemspec

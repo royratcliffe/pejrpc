@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "pejsonrpc/version"
+require "pej-rpc/version"
 
 Gem::Specification.new do |s|
-  s.name        = "pejsonrpc"
-  s.version     = Pejsonrpc::VERSION
+  s.name        = "pej-rpc"
+  s.version     = Pej::Rpc::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["TODO: Write your name"]
   s.email       = ["TODO: Write your email address"]
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{TODO: Write a gem summary}
   s.description = %q{TODO: Write a gem description}
 
-  s.rubyforge_project = "pejsonrpc"
+  s.rubyforge_project = "pej-rpc"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

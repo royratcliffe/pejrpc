@@ -1,3 +1,0 @@
-module Pejsonrpc
-  # Your code goes here...
-end
