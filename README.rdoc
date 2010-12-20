@@ -6,5 +6,5 @@ Scenario: You have two web-based applications. One is a legacy application coded
 Privacy Enhanced
 ================
 
-The PE in PE JSON-RPC stands for Privacy Enhanced and stems from the PEM acronym, which itself stands for Privacy Enhanced Mail. This project applies similar privacy enhancement to JSON-RPC, a simple remote procedure call protocol built on simple JSON encoding.
+The PE in PE JSON-RPC stands for Privacy Enhanced and stems from the PEM acronym, which itself stands for Privacy Enhanced Mail. This project applies similar privacy enhancement to JSON-RPC, a simple remote procedure-call protocol built on simple JSON encoding.
 
