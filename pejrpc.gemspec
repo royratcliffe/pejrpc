@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "pejrpc"
 
+  s.add_runtime_dependency 'addressable'
   s.add_runtime_dependency 'json'
 
   s.files         = `git ls-files`.split("\n")

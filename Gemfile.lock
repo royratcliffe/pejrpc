@@ -1,14 +1,20 @@
 PATH
   remote: .
   specs:
-    pejrpc (0.0.1)
+    pejrpc (0.0.2)
+      addressable
+      json
 
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.2.2)
+    json (1.4.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
+  json
   pejrpc!
