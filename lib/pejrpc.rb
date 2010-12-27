@@ -4,7 +4,7 @@ require 'openssl'
 require 'base64'
 require 'json'
 
-require 'pej-rpc/exceptions'
+require 'pejrpc/exceptions'
 
 module PejRPC
   

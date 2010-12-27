@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "pej-rpc/version"
+require "pejrpc/version"
 
 Gem::Specification.new do |s|
-  s.name        = "pej-rpc"
+  s.name        = "pejrpc"
   s.version     = PejRPC::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Roy Ratcliffe"]
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Privacy Enhanced JSON-RPC}
   s.description = %q{Applies PEM encrypted privacy enhancement to JSON-RPC, a simple remote procedure-call protocol built on simple JSON encoding}
 
-  s.rubyforge_project = "pej-rpc"
+  s.rubyforge_project = "pejrpc"
 
   s.add_runtime_dependency 'json'
 
