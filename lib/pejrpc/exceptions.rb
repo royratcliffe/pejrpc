@@ -1,5 +1,4 @@
 module PejRPC
-  
   class ConnectionError < StandardError # :nodoc:
     attr_reader :response
     
@@ -14,5 +13,4 @@ module PejRPC
       message
     end
   end
-  
 end
