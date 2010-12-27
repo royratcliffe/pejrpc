@@ -4,7 +4,7 @@ require "pej-rpc/version"
 
 Gem::Specification.new do |s|
   s.name        = "pej-rpc"
-  s.version     = Pej::Rpc::VERSION
+  s.version     = PejRPC::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Roy Ratcliffe"]
   s.email       = ["roy@pioneeringsoftware.co.uk"]
