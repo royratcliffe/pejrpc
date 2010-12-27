@@ -1,5 +1,3 @@
-module Pej
-  module Rpc
-    VERSION = "0.0.1"
-  end
+module PejRPC
+  VERSION = "0.0.1"
 end
