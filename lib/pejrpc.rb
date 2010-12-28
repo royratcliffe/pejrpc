@@ -23,8 +23,7 @@ module PejRPC
     end
     
     def object_to_body(object)
-      string = object.to_json
-      Base64.encode64(encrypt(string.ljust(string.length + 256 - (string.length % 256))))
+      Base64.encode64(encrypt(object.to_json))
     end
     
     def body_to_object(body)
