@@ -10,22 +10,25 @@ require 'json'
 require 'pejrpc/exceptions'
 
 module PejRPC
-  # Handles the enciphering and deciphering, encapsulating three essential
-  # pieces of information: the key, the initialisation vector and the cipher
-  # text itself.
+  # Handles enciphering and deciphering, encapsulating three essential pieces of
+  # information: the key, the initialisation vector and the cipher text itself.
   #
   # You can use the CipherText class as follows.
   #
-  # cipher_text = PejRPC::CipherText.new
-  # cipher_text.encipher('hello')
-  # p cipher_text.key
-  # p cipher_text.iv
-  # p cipher_text.text
-  # p cipher_text.decipher
+  #   cipher_text = PejRPC::CipherText.new
+  #   cipher_text.encipher('hello')
+  #   p cipher_text.key
+  #   p cipher_text.iv
+  #   p cipher_text.text
   #
   # Note, enciphering first sets up the key, initialisation vector and
   # enciphered text. If not already assigned, the key and initialisation vector
   # derive randomly from the cipher algorithm.
+  #
+  # You can use the key and initialisation vector subsequently to decipher the original text.
+  #
+  #   p cipher_text.decipher
+  #
   class CipherText
     attr_accessor :key, :iv, :text
     
@@ -61,7 +64,9 @@ module PejRPC
     end
   end
   
-  # Wraps a public or private RSA key.
+  # Wraps a public or private RSA key. The key encrypts and decrypts
+  # information, doing so either privately or publicly depending on the
+  # underlying key: privately for private keys, publicly for public keys.
   class Key
     attr_reader :rsa
     
@@ -76,7 +81,7 @@ module PejRPC
     # Answers the encryption method, either private or public. Which one depends
     # on the RSA key. If a private key, encrypt_method answers the name of the
     # private encryption method, public otherwise. Note, you can generate the
-    # public key from the private. Key the private key secret.
+    # public key from the private. Keep the private key secret.
     def encrypt_method
       private? ? :private_encrypt : :public_encrypt
     end
@@ -117,10 +122,14 @@ module PejRPC
       cipher_text.decipher
     end
     
+    # Answers a request object given a Rails request.
     def object_from_request(request)
+      # Why send request.body.read? The request body is a StringIO instance, not
+      # String instance.
       JSON.parse(text_from_body_and_header(request.body.read, request.headers))
     end
     
+    # Answers a response object given a Rails response.
     def object_from_response(response)
       JSON.parse(text_from_body_and_header(response.body, response.header))
     end
@@ -131,10 +140,34 @@ module PejRPC
   end
   
   class Server
+    attr_accessor :delegate
     attr_reader :key
     
-    def initialize(pem)
+    def initialize(delegate, pem)
+      @delegate = delegate
       @key = Key.new(pem)
+    end
+    
+    # In Rails, do something like this:
+    #
+    #   def post
+    #     server = PejRPC::Server.new(self, File.read(Rails.root.join('config', 'private.pem')))
+    #     body, headers = server.handle(request)
+    #   
+    #     response.headers.merge!(headers)
+    #     render :text => body
+    #   end
+    #
+    # This is a +post+ action tied to a POST request via the Rails router. It
+    # starts a new server and asks it to handle the request. The server extracts
+    # the request object from the given request. That includes headers as well
+    # as the request body. It then delegates the request and prepares the
+    # response body and headers. After handling, merge the headers with the
+    # response headers and render the body as text within the response.
+    def handle(request)
+      request_object = @key.object_from_request(request)
+      response_object = delegate.send(request_object['method'], request_object['params'])
+      @key.body_and_header_from_object(response_object)
     end
   end
   
