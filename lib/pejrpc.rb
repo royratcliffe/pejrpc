@@ -33,7 +33,7 @@ module PejRPC
     attr_accessor :key, :iv, :text
     
     def new_cipher
-      OpenSSL::Cipher::Cipher.new('aes-256-cbc')
+      OpenSSL::Cipher::Cipher.new('aes-128-cbc')
     end
     
     def encipher(text)
@@ -98,6 +98,9 @@ module PejRPC
       @rsa.send(decrypt_method, data)
     end
     
+    # Converts the given +data+ to a string representing the data exactly. Use
+    # the pack(string) method to reverse the encoding. The encoding makes some
+    # assumptions about the size of the data. It assumes units of 32-bit blocks.
     def unpack(data)
       data.unpack('N*').collect { |n| n.to_s(36) }.join(':')
     end
