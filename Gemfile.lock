@@ -9,12 +9,10 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.2)
-    json (1.4.6)
+    json (2.6.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  addressable
-  json
   pejrpc!
